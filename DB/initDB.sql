@@ -37,8 +37,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`profile` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `user_id`),
-  UNIQUE INDEX `p_id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `fk_profile_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_profile_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`user` (`id`)
@@ -71,8 +69,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`county` (
   `avg_hprice` INT NULL,
   `state_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`, `state_name`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `state_name_idx` (`state_name` ASC) VISIBLE,
   CONSTRAINT `state_name`
     FOREIGN KEY (`state_name`)
     REFERENCES `mydb`.`state` (`state_name`)
@@ -90,8 +86,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_fav_county` (
   `user_id` INT UNSIGNED NOT NULL,
   `county_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`user_id`, `county_id`),
-  INDEX `fk_user_has_county_county1_idx` (`county_id` ASC) VISIBLE,
-  INDEX `fk_user_has_county_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_has_county_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`user` (`id`)
@@ -114,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`job_listing` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -128,8 +121,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`job_county` (
   `county_id` INT UNSIGNED NOT NULL,
   `job_listing_id` INT NOT NULL,
   PRIMARY KEY (`county_id`, `job_listing_id`),
-  INDEX `fk_county_has_job_listing_job_listing1_idx` (`job_listing_id` ASC) VISIBLE,
-  INDEX `fk_county_has_job_listing_county1_idx` (`county_id` ASC) VISIBLE,
   CONSTRAINT `fk_county_has_job_listing_county1`
     FOREIGN KEY (`county_id`)
     REFERENCES `mydb`.`county` (`id`)
@@ -169,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`school` (
   `name` INT NOT NULL,
   `county_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`name`, `county_id`),
-  INDEX `fk_school_county1_idx` (`county_id` ASC) VISIBLE,
   CONSTRAINT `fk_school_county1`
     FOREIGN KEY (`county_id`)
     REFERENCES `mydb`.`county` (`id`)
@@ -187,8 +177,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_ban_state` (
   `user_id` INT UNSIGNED NOT NULL,
   `state_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`user_id`, `state_name`),
-  INDEX `fk_user_has_state_state1_idx` (`state_name` ASC) VISIBLE,
-  INDEX `fk_user_has_state_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_has_state_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `mydb`.`user` (`id`)
