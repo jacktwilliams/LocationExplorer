@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 file = open("Sale_Prices_County.csv", "r")
 line = file.read().split("\n")[0]
@@ -10,7 +10,7 @@ i = 0
 for part in parts:
     if part[0] == "2":
         script += "ignore" + str(i)
-        script += " INT,\n"
+        script += " VARCHAR(20),\n"
         i += 1
 
 print(script)
