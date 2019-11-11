@@ -318,7 +318,6 @@ County-State,County,Population,Median household income,State Code,State
 "Kent County, Delaware",Kent County,169509,54976,DE,Delaware
 "New Castle County, Delaware",New Castle County,549643,65476,DE,Delaware
 "Sussex County, Delaware",Sussex County,207302,53751,DE,Delaware
-"District of Columbia, District of Columbia",District of Columbia,647484,70848,DC,District of Columbia
 "Alachua County, Florida",Alachua County,254218,43073,FL,Florida
 "Baker County, Florida",Baker County,27135,47121,FL,Florida
 "Bay County, Florida",Bay County,175353,47368,FL,Florida
@@ -2672,7 +2671,7 @@ County-State,County,Population,Median household income,State Code,State
 "Lipscomb County, Texas",Lipscomb County,3483,63125,TX,Texas
 "Live Oak County, Texas",Live Oak County,11873,50400,TX,Texas
 "Llano County, Texas",Llano County,19323,48259,TX,Texas
-"Loving County, Texas",Loving County,117,null,TX,Texas
+"Loving County, Texas",Loving County,117,0,TX,Texas
 "Lubbock County, Texas",Lubbock County,290782,46075,TX,Texas
 "Lynn County, Texas",Lynn County,5764,39526,TX,Texas
 "McCulloch County, Texas",McCulloch County,8273,40561,TX,Texas
