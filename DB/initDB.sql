@@ -11,6 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` ;
 USE `mydb` ;
 
@@ -32,13 +33,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`profile` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`profile` (
-  `weight_income` DECIMAL(1,1) NOT NULL,
-  `weight_hprice` DECIMAL(1,1) NOT NULL,
+  `weightIncome` DECIMAL(1,1) NOT NULL,
+  `weightHPrice` DECIMAL(1,1) NOT NULL,
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  `userId` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`, `userId`),
   CONSTRAINT `fk_profile_user`
-    FOREIGN KEY (`user_id`)
+    FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -51,8 +52,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`state` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`state` (
-  `state_name` VARCHAR(30) NOT NULL,
-  PRIMARY KEY (`state_name`))
+  `stateName` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`stateName`))
 ENGINE = InnoDB;
 
 
@@ -65,13 +66,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`county` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `population` INT NULL,
-  `avg_income` INT NULL,
-  `avg_hprice` INT NULL,
-  `state_name` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`, `state_name`),
-  CONSTRAINT `state_name`
-    FOREIGN KEY (`state_name`)
-    REFERENCES `mydb`.`state` (`state_name`)
+  `avgIncome` INT NULL,
+  `avgHPrice` INT NULL,
+  `stateName` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`, `stateName`),
+  CONSTRAINT `stateName`
+    FOREIGN KEY (`stateName`)
+    REFERENCES `mydb`.`state` (`stateName`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -83,16 +84,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`user_fav_county` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`user_fav_county` (
-  `user_id` INT UNSIGNED NOT NULL,
-  `county_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`user_id`, `county_id`),
+  `userId` INT UNSIGNED NOT NULL,
+  `countyId` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`userId`, `countyId`),
   CONSTRAINT `fk_user_has_county_user1`
-    FOREIGN KEY (`user_id`)
+    FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_county_county1`
-    FOREIGN KEY (`county_id`)
+    FOREIGN KEY (`countyId`)
     REFERENCES `mydb`.`county` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -118,16 +119,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`job_county` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`job_county` (
-  `county_id` INT UNSIGNED NOT NULL,
-  `job_listing_id` INT NOT NULL,
-  PRIMARY KEY (`county_id`, `job_listing_id`),
+  `countyId` INT UNSIGNED NOT NULL,
+  `jobListingId` INT NOT NULL,
+  PRIMARY KEY (`countyId`, `jobListingId`),
   CONSTRAINT `fk_county_has_job_listing_county1`
-    FOREIGN KEY (`county_id`)
+    FOREIGN KEY (`countyId`)
     REFERENCES `mydb`.`county` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_county_has_job_listing_job_listing1`
-    FOREIGN KEY (`job_listing_id`)
+    FOREIGN KEY (`jobListingId`)
     REFERENCES `mydb`.`job_listing` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -140,11 +141,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`industry_job` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`industry_job` (
-  `job_id` INT NOT NULL,
+  `jobId` INT NOT NULL,
   `industry` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`job_id`, `industry`),
-  CONSTRAINT `job_id`
-    FOREIGN KEY (`job_id`)
+  PRIMARY KEY (`jobId`, `industry`),
+  CONSTRAINT `jobId`
+    FOREIGN KEY (`jobId`)
     REFERENCES `mydb`.`job_listing` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -158,10 +159,10 @@ DROP TABLE IF EXISTS `mydb`.`school` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`school` (
   `name` INT NOT NULL,
-  `county_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`name`, `county_id`),
+  `countyId` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`name`, `countyId`),
   CONSTRAINT `fk_school_county1`
-    FOREIGN KEY (`county_id`)
+    FOREIGN KEY (`countyId`)
     REFERENCES `mydb`.`county` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -174,17 +175,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`user_ban_state` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`user_ban_state` (
-  `user_id` INT UNSIGNED NOT NULL,
-  `state_name` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`user_id`, `state_name`),
+  `userId` INT UNSIGNED NOT NULL,
+  `stateName` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`userId`, `stateName`),
   CONSTRAINT `fk_user_has_state_user1`
-    FOREIGN KEY (`user_id`)
+    FOREIGN KEY (`userId`)
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_state_state1`
-    FOREIGN KEY (`state_name`)
-    REFERENCES `mydb`.`state` (`state_name`)
+    FOREIGN KEY (`stateName`)
+    REFERENCES `mydb`.`state` (`stateName`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

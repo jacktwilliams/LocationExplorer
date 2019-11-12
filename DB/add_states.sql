@@ -1,4 +1,4 @@
-insert into state(state_name)
+insert into state(stateName)
 values ('Alabama'),
 ('Alaska'),
 ('Arizona'),

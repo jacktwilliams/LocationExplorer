@@ -190,10 +190,10 @@ from excel_table1 join excel_table2 on excel_table1.countyname = excel_table2.co
 
 select * from allData where countyname = 'Goodhue County';
 
-INSERT INTO county (name, population, avg_income, avg_hprice, state_name)
-        SELECT countyname, population, avg_income, avg_hprice, state_name
+INSERT INTO county (name, population, avgIncome, avgHPrice, stateName)
+        SELECT countyName, population, avg_income, avg_hprice, state_name
     FROM allData
-    ORDER BY countyname;
+    ORDER BY countyName;
     
 select * from county;
 
