@@ -16,8 +16,8 @@ DROP TABLE IF EXISTS excel_table1;
 CREATE TABLE excel_table1 (
 	fullname VARCHAR(255),
     countyname VARCHAR(255),
-    income INT UNSIGNED,
     population INT UNSIGNED,
+    income INT UNSIGNED,
     abrev VARCHAR(2),
     state_name VARCHAR(255)
 );
@@ -196,4 +196,6 @@ INSERT INTO county (name, population, avgIncome, avgHPrice, stateName)
     ORDER BY countyName;
     
 select * from county;
+
+select * from county where avgIncome > 200000;
 

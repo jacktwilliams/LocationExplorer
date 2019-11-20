@@ -33,8 +33,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`profile` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`profile` (
-  `weightIncome` DECIMAL(1,1) NOT NULL,
-  `weightHPrice` DECIMAL(1,1) NOT NULL,
+  `weightIncome` DECIMAL(2,1) NOT NULL,
+  `weightHPrice` DECIMAL(2,1) NOT NULL,
+  `weightPopulation` DECIMAL(2,1) NOT NULL,
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `userId` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `userId`),
