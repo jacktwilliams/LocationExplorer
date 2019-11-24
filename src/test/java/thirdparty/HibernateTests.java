@@ -20,16 +20,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import entities.County;
+import entities.Profile;
 import entities.State;
+import entities.User;
 
 public class HibernateTests {
 	
 	public static SessionFactory sessionF;
 	
+	//means
 	public static final int avgIncome = 53611;
 	public static final int avgHPrice = 213427;
 	public static final int avgPop = 231225;
 	
+	//standard deviations
 	public static final int stdIncome = 13529;
 	public static final int stdHPrice = 118603;
 	public static final int stdPop = 499656;
@@ -42,6 +46,8 @@ public class HibernateTests {
 		Metadata metadata = new MetadataSources(standardRegistry)
 				.addAnnotatedClass(State.class)
 				.addAnnotatedClass(County.class)
+				.addAnnotatedClass(User.class)
+				.addAnnotatedClass(Profile.class)
 				.addPackage("entities")
 				.getMetadataBuilder()
 				.applyImplicitSchemaName("mydb").build();
@@ -77,6 +83,7 @@ public class HibernateTests {
 		System.out.println(avgIncome);
 		System.out.println(avghprice);
 		System.out.println(avgPop);
+		s.close();
 	}
 	
 	@Test
@@ -99,5 +106,27 @@ public class HibernateTests {
 		System.out.println(stdIncome);
 		System.out.println(stdhprice);
 		System.out.println(stdPop);
+		s.close();
+	}
+	
+	@Test
+	void createUser() {
+		Session s = sessionF.openSession();
+		s.beginTransaction();
+		User u = new User();
+		u.setName("testCreateUser");
+		Profile p = new Profile();
+		p.setWeightHPrice(-1);
+		p.setWeightIncome(1);
+		p.setWeightPopulation(-1);
+		u.addProfile(p);
+		s.save(u);
+		s.getTransaction().commit();
+		System.out.println("Check for user in database.");
+		s.beginTransaction();
+		s.delete(u);
+		s.delete(p);
+		s.getTransaction().commit();
+		s.close();
 	}
 }
