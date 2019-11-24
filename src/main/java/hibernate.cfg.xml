@@ -11,7 +11,7 @@
 	<property name="connection.url"> jdbc:mysql://localhost:3306/mydb</property>
 	<!-- should be the username and password to MySQL server -->
 	<property name="connection.username">root</property>
-	<property name="connection.password">***</property>
+	<property name="connection.password">CCrun123</property>
 
 	<!-- Using JDBS to connect to MySQL, JDBC driver needs to to included in the build path of eclipse -->
 	<property name="connection.driver_class"> com.mysql.jdbc.Driver</property>
