@@ -18,12 +18,10 @@ import dao.DaoManager;
 import dao.UserDao;  
 
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet { //TODO make a BaseHTTPServlet that abstracts away initialization
-	private DaoManager daoManager;
+public class LoginServlet extends BaseServlet { //TODO make a BaseHTTPServlet that abstracts away initialization
 	private UserDao userDao;
 	
 	public void init() {
-		daoManager = (DaoManager) getServletContext().getAttribute("daoManager");
 		userDao = daoManager.getUserDao();
 	}
 	
@@ -34,10 +32,10 @@ public class LoginServlet extends HttpServlet { //TODO make a BaseHTTPServlet th
     	response.setContentType("text/html");  
     	PrintWriter out = response.getWriter();  
     	//request.getRequestDispatcher("link.html").include(request, response);
-    	Map<String, String[]> e = request.getParameterMap();
-    	for (Entry<String, String[]> entry : e.entrySet()) {
-    		System.out.println(entry.getKey() + " : " + entry.getValue());
-    	}
+//    	Map<String, String[]> e = request.getParameterMap();
+//    	for (Entry<String, String[]> entry : e.entrySet()) {
+//    		System.out.println(entry.getKey() + " : " + entry.getValue().toString());
+//    	}
     	String name = request.getParameter("name");   
       	out.print("Welcome, "+name);  
       	HttpSession session=request.getSession();  
