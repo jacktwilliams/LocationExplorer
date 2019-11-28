@@ -17,7 +17,10 @@ public class LoginHandler extends BaseHandler {
 	public boolean login(HttpServletRequest request) {
 		Session s = daoManager.getSessionF().openSession();
     	//request.getRequestDispatcher("link.html").include(request, response);
-    	String name = request.getParameter("name");   
+    	String name = request.getParameter("name");
+    	if (name == null) {
+    		return false;
+    	}
       	HttpSession session=request.getSession();  
     	session.setAttribute("user",daoManager.getUserDao().getOrCreateUser(name));  
     	s.close();

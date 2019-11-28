@@ -72,4 +72,9 @@ public class County {
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
 	}
+	
+	public String toString() {
+		return name + ", " + stateName + ": " + "Population = " + population + ", " +
+				"Avg Home Price = " + avgHPrice + ", Avg Income = " + avgIncome;
+	}
 }

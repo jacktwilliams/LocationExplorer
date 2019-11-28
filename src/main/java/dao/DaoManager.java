@@ -13,11 +13,13 @@ import entities.User;
 
 public class DaoManager {
 	private UserDao userDao;
+	private CountyDao countyDao;
 	private SessionFactory sessionF;
 	
 	public DaoManager() {
 		System.out.println("Initializing dao manager");
 		this.userDao = new UserDao(this);
+		this.countyDao = new CountyDao(this);
 		
 		StandardServiceRegistry standardRegistry =
 		        new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
@@ -36,6 +38,10 @@ public class DaoManager {
 
 	public UserDao getUserDao() {
 		return userDao;
+	}
+
+	public CountyDao getCountyDao() {
+		return countyDao;
 	}
 
 	public SessionFactory getSessionF() {
