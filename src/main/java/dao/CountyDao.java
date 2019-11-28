@@ -40,24 +40,14 @@ public class CountyDao {
 			@Override
 			public double applyAsDouble(County c) {
 				double score = 0;
-				double z = (c.getAvgHPrice() - avgHPrice) / stdHPrice;
-				score = updateScore(score, z, avgHPrice, c.getAvgHPrice(), avgHPriceW);
-				z = (c.getAvgIncome() - avgIncome) / stdHPrice;
-				score = updateScore(score, z, avgIncome, c.getAvgIncome(), avgIncomeW);
-				z = (c.getPopulation() - avgPop) / stdPop;
-				score = updateScore(score, z, avgPop, c.getPopulation(), populationW);
-				return score;
+				// score += z-score * weight
+				score += ((c.getAvgHPrice() - avgHPrice) / (double)stdHPrice) * avgHPriceW;
+				score += ((c.getAvgIncome() - avgIncome) / (double)stdIncome) * avgIncomeW;
+				score += ((c.getPopulation() - avgPop) / (double)stdPop) * populationW;
+				return 0 - score; //hackish way to sort in descending order
 			}
 		});
 		
 		return Arrays.copyOfRange(counties.stream().sorted(comparator).toArray(County[]::new), 0, size);
-	}
-	
-	private double updateScore(double score, double z, double avg, double point, double weight) {
-		if (point < avg) {
-			return score - (z * weight);
-		} else {
-			return score + (z * weight);
-		}
 	}
 }
