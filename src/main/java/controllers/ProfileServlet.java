@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import entities.Profile;
 import entities.User;
@@ -34,6 +35,18 @@ public class ProfileServlet extends BaseServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
-		System.out.println("Made it to profile"); //testing if my dispatch is keeping the request as a POST
+		processRequest(request, response);
+		Session s = daoManager.startSession();
+		double weightIncome = Double.parseDouble(request.getParameter("weightIncome"));
+		double weightHPrice = Double.parseDouble(request.getParameter("weightHPrice"));
+		double weightPopulation = Double.parseDouble(request.getParameter("weightPopulation"));
+		Transaction t = s.beginTransaction();
+		Profile p = new Profile(weightIncome, weightHPrice, weightPopulation);
+		User u = (User) request.getSession().getAttribute("user");
+		u.addProfile(p);
+		s.save(p);
+		t.commit();
+		redirect(request, response, "/profiles-list.jsp");
+		daoManager.closeSession();
     }
 }

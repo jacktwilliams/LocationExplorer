@@ -26,6 +26,14 @@ public class Profile {
 	@JoinColumn(name="userId")
 	private User user;
 	
+	public Profile() {}
+	
+	public Profile(double weightIncome, double weightHPrice, double weightPopulation) {
+		this.weightIncome = weightIncome;
+		this.weightHPrice = weightHPrice;
+		this.weightPopulation = weightPopulation;
+	}
+	
 	public int getId() {
 		return id;
 	}

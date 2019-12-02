@@ -49,7 +49,7 @@ public class User {
 	}
 	
 	public void addProfile(Profile p) {
-//		p.setUser(this);
+		p.setUser(this);
 		if (profiles == null) {
 			profiles = new ArrayList<Profile>();
 		}
@@ -57,7 +57,7 @@ public class User {
 	}
 	
 	public void removeProfile(Profile p) {
-//		p.setUser(null);
+		p.setUser(null);
 		this.profiles.remove(p);
 	}
 }

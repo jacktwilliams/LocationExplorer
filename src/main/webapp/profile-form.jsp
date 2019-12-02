@@ -9,8 +9,6 @@
 	<center>
 		<h1>Create Profile</h1>
         <h2>
-        	<a href="newProfile">Add New Profile</a>
-        	&nbsp;&nbsp;&nbsp;
         	<a href="loginsuccess.jsp">Return To User Menu</a>
         	
         </h2>
@@ -40,11 +38,18 @@
               <tr>
                 <th>Home Price Weight: </th>
                 <td>
-                	<input type="text" name="weightPrice" size="45"
+                	<input type="text" name="weightHPrice" size="45"
                 			value=""
                 		/>
                 	
                 </td>
+            </tr>
+            
+            <tr>
+            	<th>Population Weight: </th>
+            	<td>
+            	<input type="text" name="weightPopulation" size="45" value="" />
+            	</td>
             </tr>                  
            
             <tr>
