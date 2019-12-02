@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import entities.Profile;
 import entities.User;
 
 public class UserDao {
@@ -36,5 +37,18 @@ public class UserDao {
 			transaction.commit();
 			return newU;
 		}
+	}
+	
+	public List<Profile> getProfiles(User user) {
+		if (user.getProfiles() != null) {
+			return user.getProfiles();
+		}
+		Session s = daoManager.getSessionF().getCurrentSession();
+		Transaction transaction = s.beginTransaction();
+		Query q = s.createQuery("From Profile WHERE user.id = :uid");
+		q.setParameter("uid", user.getId());
+		List<Profile> profiles = (List<Profile>) q.list();
+		transaction.commit();
+		return profiles;
 	}
 }

@@ -18,6 +18,12 @@ public class BaseServlet extends HttpServlet {
 		daoManager = (DaoManager) getServletContext().getAttribute("daoManager");
 	}
 	
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getSession().getAttribute("user") == null) {
+			dispatch(request, response, "/login.jsp");
+		}
+	}
+	
 	protected void dispatch(HttpServletRequest request, 
 			HttpServletResponse response, String page) throws ServletException, IOException {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);

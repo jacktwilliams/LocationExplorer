@@ -40,6 +40,11 @@
       <version>3.0-alpha-1</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>jstl</artifactId>
+    	<version>1.2</version>
+	</dependency>	
     <!-- Java EE modules no longer bundled with main JDK in java11: https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j -->
     <dependency>
       <groupId>javax.xml.bind</groupId>

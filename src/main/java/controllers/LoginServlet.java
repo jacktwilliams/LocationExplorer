@@ -42,7 +42,7 @@ public class LoginServlet extends BaseServlet { //TODO make a BaseHTTPServlet th
 //    	out.close();
     	
     	if (loginHandler.login(request)) {
-    		dispatch(request,response,"/SampleDashboard.jsp");
+    		dispatch(request,response,"/profiles-list.jsp");
     	} else {
     		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
     				"Failed to login.");

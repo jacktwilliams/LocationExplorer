@@ -47,4 +47,12 @@ public class DaoManager {
 	public SessionFactory getSessionF() {
 		return sessionF;
 	}
+	
+	public void startSession() {
+		sessionF.openSession();
+	}
+	
+	public void closeSession() {
+		sessionF.getCurrentSession().close();
+	}
 }

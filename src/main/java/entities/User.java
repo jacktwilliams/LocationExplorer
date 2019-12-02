@@ -22,8 +22,8 @@ public class User {
 	private String name;
 	
 	@Transient
-	private List<Profile> profiles = new ArrayList<Profile>();
-
+	private List<Profile> profiles;
+	
 	public int getId() {
 		return id;
 	}
@@ -50,6 +50,9 @@ public class User {
 	
 	public void addProfile(Profile p) {
 //		p.setUser(this);
+		if (profiles == null) {
+			profiles = new ArrayList<Profile>();
+		}
 		this.profiles.add(p);
 	}
 	
