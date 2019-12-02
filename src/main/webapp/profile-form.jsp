@@ -16,8 +16,7 @@
         </h2>
 	</center>
     <div align="center">
-		<c:if test="${user != null}">
-			<form action="insertProfile" method="post">
+			<form action="/profiles" method="post">
        
         <table border="1" cellpadding="5">
             <caption>
@@ -28,7 +27,6 @@
             	   Enter values from 0 to 0.9!
             </caption>
         		
-        			<input type="hidden" name="userId" value="<c:out value='${user.id}' />" />
         		        
             <tr>
                 <th>Income Weight: </th>
@@ -56,8 +54,6 @@
             </tr>
         </table>
         </form>
-        
-         </c:if>
     </div>	
 </body>
 </html>

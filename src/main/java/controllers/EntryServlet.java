@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/")
 public class EntryServlet extends BaseServlet {
+	
+	public void init() {
+		super.init();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
 		processRequest(request, response);

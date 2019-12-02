@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.io.*" %> 
-<%@ page import="dao.DaoManager" %>
-<%@ page import="dao.UserDao" %>
-<%@ page import="entities.Profile" %>
-<%@ page import="entities.User" %>
-<%@ page import="java.util.List" %>
 
-<%
-DaoManager daoManager = (DaoManager) getServletContext().getAttribute("daoManager");
-daoManager.startSession();
-List<Profile> profiles = daoManager.getUserDao().getProfiles((User)(session.getAttribute("user")));
-daoManager.closeSession();
-%>
 <html>
 <head>
 	<title>Profiles List</title>
@@ -22,7 +10,7 @@ daoManager.closeSession();
 	<center>
 		<h1>Profiles</h1>
 		        	
-	    <a href="addProfile?id=<c:out value='${user.id}' />">Add New Profile</a>
+	    <a href="/profiles?page=create">Add New Profile</a>
 	</center>
     <div align="center">
         <table border="1" cellpadding="5">

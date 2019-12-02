@@ -29,4 +29,9 @@ public class BaseServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
+	
+	protected void redirect(HttpServletRequest request, 
+			HttpServletResponse response, String page) throws ServletException, IOException {
+		response.sendRedirect(page);
+	}
 }

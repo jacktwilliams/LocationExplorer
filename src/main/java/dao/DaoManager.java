@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -48,8 +49,8 @@ public class DaoManager {
 		return sessionF;
 	}
 	
-	public void startSession() {
-		sessionF.openSession();
+	public Session startSession() {
+		return sessionF.openSession();
 	}
 	
 	public void closeSession() {

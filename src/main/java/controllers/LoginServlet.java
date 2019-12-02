@@ -19,7 +19,7 @@ import dao.UserDao;
 import handlers.LoginHandler;  
 
 @WebServlet("/login")
-public class LoginServlet extends BaseServlet { //TODO make a BaseHTTPServlet that abstracts away initialization
+public class LoginServlet extends BaseServlet {
 	private UserDao userDao;
 	private LoginHandler loginHandler;
 	
@@ -33,16 +33,8 @@ public class LoginServlet extends BaseServlet { //TODO make a BaseHTTPServlet th
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
-//    	response.setContentType("text/html");  
-//    	PrintWriter out = response.getWriter();  
-//    	String name = request.getParameter("name");   
-//      	out.print("Welcome, "+name);  
-//      	HttpSession session=request.getSession();  
-//    	session.setAttribute("user",userDao.getOrCreateUser(name));  
-//    	out.close();
-    	
     	if (loginHandler.login(request)) {
-    		dispatch(request,response,"/profiles-list.jsp");
+    		redirect(request,response,"/profiles?page=list");
     	} else {
     		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
     				"Failed to login.");
