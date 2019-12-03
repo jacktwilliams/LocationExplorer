@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import entities.County;
 import entities.Profile;
 import entities.User;
 
@@ -50,5 +51,15 @@ public class UserDao {
 		List<Profile> profiles = (List<Profile>) q.list();
 		transaction.commit();
 		return profiles;
+	}
+	
+	public User getUserById(int id, Session s) {
+		Transaction t = s.beginTransaction();
+		Query q = s.createQuery("FROM User WHERE id = :id");
+		q.setParameter("id", id);
+		User u = (User) q.list().get(0);
+		t.commit();
+		s.saveOrUpdate(u);
+		return u;
 	}
 }

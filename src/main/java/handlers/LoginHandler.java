@@ -18,7 +18,7 @@ public class LoginHandler extends BaseHandler {
     		return false;
     	}
       	HttpSession session=request.getSession();  
-    	session.setAttribute("user",daoManager.getUserDao().getOrCreateUser(name));  
+    	session.setAttribute("user",daoManager.getUserDao().getOrCreateUser(name).getId());  
     	s.close();
     	//TODO: maybe catch and return false?
     	return true;

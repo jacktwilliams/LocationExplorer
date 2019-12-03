@@ -19,12 +19,12 @@ public class ProfileServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
 		processRequest(request, response);
-		daoManager.startSession();
+		Session s =daoManager.startSession();
 
 		String nav = request.getParameter("page"); //TODO: handling for null nav param
 		if (nav.equals("list")) {
 			List<Profile> profiles = daoManager.getUserDao().
-					getProfiles((User)(request.getSession().getAttribute("user")));
+					getProfiles(daoManager.getSessionUser(request, s));
 			request.getSession().setAttribute("profiles", profiles);
 			redirect(request,response, "/profiles-list.jsp");
 		} else if (nav.equals("create")) {
@@ -43,7 +43,7 @@ public class ProfileServlet extends BaseServlet {
 		double weightPopulation = Double.parseDouble(request.getParameter("weightPopulation"));
 		Transaction t = s.beginTransaction();
 		Profile p = new Profile(weightIncome, weightHPrice, weightPopulation);
-		User u = (User) request.getSession().getAttribute("user");
+		User u = daoManager.getSessionUser(request, s);
 		u.addProfile(p);
 		s.save(p);
 		t.commit();

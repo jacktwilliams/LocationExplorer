@@ -78,11 +78,8 @@ public class DaoManager {
 		sessionF.getCurrentSession().close();
 	}
 	
-	public User getSessionUser(HttpServletRequest r) {
-		User u = (User) r.getSession().getAttribute("user");
-		Transaction t = beginTransaction();
-		getCurrentSession().saveOrUpdate(u);
-		t.commit();
-		return u;
+	public User getSessionUser(HttpServletRequest r, Session s) {
+		int uid = (int) r.getSession().getAttribute("user");
+		return userDao.getUserById(uid, s);
 	}
 }
