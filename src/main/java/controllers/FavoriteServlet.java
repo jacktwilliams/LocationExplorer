@@ -23,7 +23,7 @@ public class FavoriteServlet extends BaseServlet {
 
 		String nav = request.getParameter("page"); //TODO: handling for null nav param
 		if (nav.equals("list")) {
-			List<County> favorites = daoManager.getSessionUser(request, s).getFavorites();
+			List<County> favorites = daoManager.getSessionUser(request).getFavorites();
 			request.getSession().setAttribute("favorites", favorites);
 			redirect(request,response, "/favorites-list.jsp");
 		} 

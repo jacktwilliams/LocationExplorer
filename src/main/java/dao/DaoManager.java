@@ -78,8 +78,8 @@ public class DaoManager {
 		sessionF.getCurrentSession().close();
 	}
 	
-	public User getSessionUser(HttpServletRequest r, Session s) {
+	public User getSessionUser(HttpServletRequest r) {
 		int uid = (int) r.getSession().getAttribute("user");
-		return userDao.getUserById(uid, s);
+		return userDao.getUserById(uid);
 	}
 }

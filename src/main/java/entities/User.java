@@ -32,8 +32,8 @@ public class User {
 	//TODO: Find way to turn off eager fetching. Without it I am getting linked issue, even though I had a transaction started https://stackoverflow.com/questions/11746499/how-to-solve-the-failed-to-lazily-initialize-a-collection-of-role-hibernate-ex
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_fav_county",   
-    joinColumns = { @JoinColumn(name= "userId") },   
-    inverseJoinColumns = { @JoinColumn(name = "countyId") }) 
+    joinColumns = { @JoinColumn(name= "countyId") },   
+    inverseJoinColumns = { @JoinColumn(name = "userId") }) 
 	private List<County> favorites = new ArrayList<County>();
 	
 	public int getId() {

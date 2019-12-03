@@ -53,13 +53,13 @@ public class UserDao {
 		return profiles;
 	}
 	
-	public User getUserById(int id, Session s) {
+	public User getUserById(int id) {
+		Session s = daoManager.getCurrentSession();
 		Transaction t = s.beginTransaction();
 		Query q = s.createQuery("FROM User WHERE id = :id");
 		q.setParameter("id", id);
 		User u = (User) q.list().get(0);
 		t.commit();
-		s.saveOrUpdate(u);
 		return u;
 	}
 }
