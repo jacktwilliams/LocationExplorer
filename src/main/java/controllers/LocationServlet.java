@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import entities.County;
+import entities.Job;
 import entities.Profile;
 
 @WebServlet("/locations")
@@ -27,6 +30,12 @@ public class LocationServlet extends BaseServlet {
 					getTopCountiesWithWeights(20, p.getWeightIncome(), p.getWeightHPrice(), p.getWeightPopulation());
 			request.getSession().setAttribute("topCounties", topCounties);
 			redirect(request, response, "/info-list.jsp");
+		} else if (nav.equals("details")) {
+			int cid = Integer.parseInt(request.getParameter("countyId"));
+			County c = daoManager.getCountyDao().getCountyById(cid);
+			List<Job> jobs = c.getListings();
+			request.getSession().setAttribute("jobs", jobs);
+			redirect(request, response, "/county-details.jsp");
 		}
 		s.close();
     }

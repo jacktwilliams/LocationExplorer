@@ -1,8 +1,16 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -24,10 +32,18 @@ public class County {
 	
 	private int avgHPrice;
 	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(name = "job_county",   
+    joinColumns = { @JoinColumn(name= "jobListingId") },   
+    inverseJoinColumns = { @JoinColumn(name = "countyId") }) 
+	private List<Job> listings = new ArrayList<Job>();
+	
 	private String stateName;
 	
 	@Transient
 	private int rank;
+	
+	
 
 	public int getId() {
 		return id;
@@ -83,6 +99,21 @@ public class County {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	public List<Job> getListings() {
+		return listings;
+	}
+
+	public void setListings(List<Job> listings) {
+		this.listings = listings;
+	}
+	
+	public void addListing(Job j) {
+		//maybe this little scheme will prevent the issue in user's many to many user->county mapping where I had to user EAGER.
+		List<Job> jobs = getListings();
+		jobs.add(j);
+		setListings(jobs);
 	}
 
 	public String toString() {

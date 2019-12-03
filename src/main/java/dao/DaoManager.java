@@ -1,5 +1,9 @@
 package dao;
 
+import java.net.http.HttpResponse;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import entities.County;
+import entities.Job;
 import entities.Profile;
 import entities.State;
 import entities.User;
@@ -33,6 +38,7 @@ public class DaoManager {
 				.addAnnotatedClass(County.class)
 				.addAnnotatedClass(User.class)
 				.addAnnotatedClass(Profile.class)
+				.addAnnotatedClass(Job.class)
 				.addPackage("entities")
 				.getMetadataBuilder()
 				.applyImplicitSchemaName("mydb").build();
@@ -70,5 +76,13 @@ public class DaoManager {
 	
 	public void closeSession() {
 		sessionF.getCurrentSession().close();
+	}
+	
+	public User getSessionUser(HttpServletRequest r) {
+		User u = (User) r.getSession().getAttribute("user");
+		Transaction t = beginTransaction();
+		getCurrentSession().saveOrUpdate(u);
+		t.commit();
+		return u;
 	}
 }

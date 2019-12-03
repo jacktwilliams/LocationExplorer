@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import entities.County;
+import entities.Job;
 import entities.Profile;
 import entities.State;
 import entities.User;
@@ -43,6 +44,7 @@ public class HibernateTests {
 				.addAnnotatedClass(County.class)
 				.addAnnotatedClass(User.class)
 				.addAnnotatedClass(Profile.class)
+				.addAnnotatedClass(Job.class)
 				.addPackage("entities")
 				.getMetadataBuilder()
 				.applyImplicitSchemaName("mydb").build();

@@ -22,7 +22,7 @@
             			Enter Weights 		
             		
             	</h2><br/>
-            	   Enter values from 0 to 0.9!
+            	   Enter values from -1 to 1!
             </caption>
         		
         		        

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.County;
 import entities.User;
 
+//TODO: fold this servlet into LocationServlet
 @WebServlet("/favorites")
 public class FavoriteServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  

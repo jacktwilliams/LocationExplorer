@@ -32,7 +32,8 @@ public class ActionServlet extends BaseServlet {
 		} else if (action.equals("favorite")) {
 			int cid = Integer.parseInt(request.getParameter("countyId"));
 			County c = daoManager.getCountyDao().getCountyById(cid);
-			User u = (User) request.getSession().getAttribute("user");
+			User u = daoManager.getSessionUser(request);
+			boolean contains = s.contains(u);
 			Transaction t = daoManager.beginTransaction();
 			u.addFavorite(c);
 			t.commit();
