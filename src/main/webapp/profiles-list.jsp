@@ -9,8 +9,10 @@
 <body>
 	<center>
 		<h1>Profiles</h1>
-		        	
-	    <a href="/profiles?page=create">Add New Profile</a>
+		<h2>
+			<a href="/home.jsp">Home</a>        	
+	    	<a href="/profiles?page=create">Add New Profile</a>
+	    </h2>
 	</center>
     <div align="center">
         <table border="1" cellpadding="5">

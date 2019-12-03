@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import entities.County;
+import entities.Profile;
 
 public class CountyDao {
 	private DaoManager daoManager;
@@ -54,5 +56,15 @@ public class CountyDao {
 			c.setRank(rank++);
 		}
 		return res;
+	}
+	
+	public County getCountyById(int id) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		Query q = s.createQuery("FROM County WHERE id = :id");
+		q.setParameter("id", id);
+		County c = (County) q.list().get(0);
+		t.commit();
+		return c;
 	}
 }

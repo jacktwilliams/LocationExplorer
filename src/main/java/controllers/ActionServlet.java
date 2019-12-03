@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import entities.County;
+import entities.User;
 
 /**
  * Translates GETs from our jsp pages into the appropriate DAO actions and then handles navigation.
@@ -25,6 +29,13 @@ public class ActionServlet extends BaseServlet {
 			int pid = Integer.parseInt(request.getParameter("id"));
 			daoManager.getProfileDao().deleteProfile(pid);
 			redirect(request, response, "/profiles?page=list");
+		} else if (action.equals("favorite")) {
+			int cid = Integer.parseInt(request.getParameter("countyId"));
+			County c = daoManager.getCountyDao().getCountyById(cid);
+			User u = (User) request.getSession().getAttribute("user");
+			Transaction t = daoManager.beginTransaction();
+			u.addFavorite(c);
+			t.commit();
 		}
 		s.close();
     }

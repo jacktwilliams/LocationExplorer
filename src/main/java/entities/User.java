@@ -3,9 +3,11 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,6 +25,9 @@ public class User {
 	
 	@Transient
 	private List<Profile> profiles;
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<County> favorites = new ArrayList<County>();
 	
 	public int getId() {
 		return id;
@@ -56,6 +61,18 @@ public class User {
 		this.profiles.add(p);
 	}
 	
+	public List<County> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<County> favorites) {
+		this.favorites = favorites;
+	}
+	
+	public void addFavorite(County c) {
+		this.favorites.add(c);
+	}
+
 	public void removeProfile(Profile p) {
 		p.setUser(null);
 		this.profiles.remove(p);

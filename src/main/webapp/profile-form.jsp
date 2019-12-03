@@ -9,7 +9,7 @@
 	<center>
 		<h1>Create Profile</h1>
         <h2>
-        	<a href="loginsuccess.jsp">Return To User Menu</a>
+        	<a href="/home.jsp">Home</a>
         	
         </h2>
 	</center>
