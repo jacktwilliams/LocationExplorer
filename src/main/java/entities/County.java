@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,6 +25,9 @@ public class County {
 	private int avgHPrice;
 	
 	private String stateName;
+	
+	@Transient
+	private int rank;
 
 	public int getId() {
 		return id;
@@ -73,6 +77,14 @@ public class County {
 		this.stateName = stateName;
 	}
 	
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
 	public String toString() {
 		return name + ", " + stateName + ": " + "Population = " + population + ", " +
 				"Avg Home Price = " + avgHPrice + ", Avg Income = " + avgIncome;

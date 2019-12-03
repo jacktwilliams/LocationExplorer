@@ -2,6 +2,7 @@ package dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -15,12 +16,14 @@ import entities.User;
 public class DaoManager {
 	private UserDao userDao;
 	private CountyDao countyDao;
+	private ProfileDao profileDao;
 	private SessionFactory sessionF;
 	
 	public DaoManager() {
 		System.out.println("Initializing dao manager");
 		this.userDao = new UserDao(this);
 		this.countyDao = new CountyDao(this);
+		this.profileDao = new ProfileDao(this);
 		
 		StandardServiceRegistry standardRegistry =
 		        new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
@@ -45,12 +48,24 @@ public class DaoManager {
 		return countyDao;
 	}
 
+	public ProfileDao getProfileDao() {
+		return profileDao;
+	}
+
 	public SessionFactory getSessionF() {
 		return sessionF;
 	}
 	
 	public Session startSession() {
 		return sessionF.openSession();
+	}
+	
+	public Session getCurrentSession() {
+		return sessionF.getCurrentSession();
+	}
+	
+	public Transaction beginTransaction() {
+		return sessionF.getCurrentSession().beginTransaction();
 	}
 	
 	public void closeSession() {

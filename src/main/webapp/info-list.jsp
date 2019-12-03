@@ -19,30 +19,26 @@
      	
     <input type="submit" value="Submit" />
         <table border="1" cellpadding="5">
-            <caption><h2>List of Users</h2></caption>
+            <caption><h2>Best Counties</h2></caption>
             <tr>
-                <th>ID</th>
+				<th>Rank</th>              
                 <th>Name</th>              
                 <th>Population</th>
                 <th>Income</th>              
                 <th>HPrices</th>
                 <th>State</th>
-                <th>Rank</th>              
                 <th>Fav</th>
-                <th>Bans</th>
             </tr>
-            <c:forEach var="info" items="${info}">
+            <c:forEach var="county" items="${topCounties}">
                 <tr>
-                    <td><c:out value="${info.county.id}" /></td>
-                    <td><c:out value="${info.county.name}" /></td>
-                    <td><c:out value="${info.county.population}" /></td>
-                    <td><c:out value="${info.county.avgIncome}" /></td>
-                    <td><c:out value="${info.county.avgHPrice}" /></td>
-                    <td><c:out value="${info.county.state.stateName}" /></td>
-                    <td><c:out value="${info.rank}" /></td>
+					<td><c:out value="${county.rank}" /></td>
+                    <td><c:out value="${county.name}" /></td>
+                    <td><c:out value="${county.population}" /></td>
+                    <td><c:out value="${county.avgIncome}" /></td>
+                    <td><c:out value="${county.avgHPrice}" /></td>
+                    <td><c:out value="${county.stateName}" /></td>
                     
-                   <td>  <input type="checkbox" name="favs"    value="<c:out value="${info.county.id}"/>"/>  </td>
-                   <td>  <input type="checkbox" name="bans"    value="<c:out value="${info.county.id}"/>"/>  </td>    
+                   <td>  <a href="/actions?action=favorite&countyId=<c:out value="${info.county.id}"/>"/>  </td>
                   
                 </tr>
             </c:forEach>

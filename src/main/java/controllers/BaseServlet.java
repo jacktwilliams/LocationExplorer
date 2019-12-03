@@ -18,7 +18,14 @@ public class BaseServlet extends HttpServlet {
 		daoManager = (DaoManager) getServletContext().getAttribute("daoManager");
 	}
 	
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		// disable page caching
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+		response.setDateHeader("Expires", 0); // Proxies.
+		
+		//send to login if no user is logged in
 		if (request.getSession().getAttribute("user") == null) {
 			dispatch(request, response, "/login.jsp");
 		}
@@ -32,6 +39,7 @@ public class BaseServlet extends HttpServlet {
 	
 	protected void redirect(HttpServletRequest request, 
 			HttpServletResponse response, String page) throws ServletException, IOException {
+		daoManager.closeSession(); //close hibernate session for dao ops to take affect before we nav
 		response.sendRedirect(page);
 	}
 }

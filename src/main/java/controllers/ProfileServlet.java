@@ -19,18 +19,19 @@ public class ProfileServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
 		processRequest(request, response);
+		daoManager.startSession();
 
 		String nav = request.getParameter("page"); //TODO: handling for null nav param
 		if (nav.equals("list")) {
-			daoManager.startSession();
 			List<Profile> profiles = daoManager.getUserDao().
 					getProfiles((User)(request.getSession().getAttribute("user")));
-			daoManager.closeSession();
 			request.getSession().setAttribute("profiles", profiles);
 			redirect(request,response, "/profiles-list.jsp");
 		} else if (nav.equals("create")) {
-			dispatch(request, response, "/profile-form.jsp");
+			redirect(request, response, "/profile-form.jsp");
 		}
+		
+		daoManager.closeSession();
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  
@@ -46,7 +47,7 @@ public class ProfileServlet extends BaseServlet {
 		u.addProfile(p);
 		s.save(p);
 		t.commit();
-		redirect(request, response, "/profiles-list.jsp");
+		redirect(request, response, "/profiles?page=list"); //important to re-fetch profiles
 		daoManager.closeSession();
     }
 }

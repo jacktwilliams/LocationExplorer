@@ -20,6 +20,7 @@
                 <th>ID</th>
                 <th>Income Weight</th>
                 <th>Prices Weight</th>
+                <th>Population Weight</th>
                 <th>Actions</th>
             </tr>
             <c:forEach var="profile" items="${profiles}">
@@ -27,11 +28,12 @@
                     <td><c:out value="${profile.id}" /></td>
                     <td><c:out value="${profile.weightIncome}" /></td>
                     <td><c:out value="${profile.weightHPrice}" /></td>
+                    <td><c:out value="${profile.weightPopulation}" /></td>
                   
                     <td>
-                    	<a href="deleteProfile?id=<c:out value='${profile.id}' />">Delete</a>                    	
+                    	<a href="/action?action=deleteProfile&id=<c:out value='${profile.id}' />">Delete</a>                    	
                     	&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="runFilters?id=<c:out value='${profile.id}' />">Run</a>
+                    	<a href="/locations?page=list&profileId=<c:out value='${profile.id}' />">Run</a>
                     </td>
                 </tr>
             </c:forEach>

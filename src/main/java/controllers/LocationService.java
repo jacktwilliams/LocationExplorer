@@ -12,8 +12,8 @@ import org.hibernate.Session;
 
 import entities.County;
 
-@WebServlet("/ws/counties")
-public class CountyService extends BaseServlet {
+@WebServlet("/ws/locations")
+public class LocationService extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
 		Session s = daoManager.getSessionF().openSession();

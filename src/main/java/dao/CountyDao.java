@@ -48,6 +48,11 @@ public class CountyDao {
 			}
 		});
 		
-		return Arrays.copyOfRange(counties.stream().sorted(comparator).toArray(County[]::new), 0, size);
+		County[] res =Arrays.copyOfRange(counties.stream().sorted(comparator).toArray(County[]::new), 0, size);
+		int rank = 1;
+		for (County c : res) {
+			c.setRank(rank++);
+		}
+		return res;
 	}
 }
