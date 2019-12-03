@@ -7,12 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import entities.County;
-import entities.Profile;
 import entities.User;
 
 @WebServlet("/favorites")

@@ -1,33 +1,20 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;  
-import javax.servlet.http.HttpServlet;  
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.hibernate.Session;
-
-import dao.DaoManager;
-import dao.UserDao;
 import handlers.LoginHandler;  
 
 @WebServlet("/login")
 public class LoginServlet extends BaseServlet {
-	private UserDao userDao;
 	private LoginHandler loginHandler;
 	
 	
 	public void init() {
 		System.out.println("Login Servlet initialized");
 		super.init();
-		userDao = daoManager.getUserDao();
 		loginHandler = new LoginHandler(daoManager);
 	}
 	
