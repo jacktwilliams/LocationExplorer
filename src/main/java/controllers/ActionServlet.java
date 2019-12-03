@@ -36,6 +36,10 @@ public class ActionServlet extends BaseServlet {
 			Transaction t = daoManager.beginTransaction();
 			u.addFavorite(c);
 			t.commit();
+			redirect(request, response, "/favorites?page=list");
+		} else if (action.equals("logout")) {
+			request.getSession().invalidate();
+			redirect(request, response, "/");
 		}
 		s.close();
     }

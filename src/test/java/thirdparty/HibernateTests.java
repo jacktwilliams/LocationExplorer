@@ -8,6 +8,7 @@ import javax.imageio.spi.ServiceRegistry;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
@@ -127,6 +128,23 @@ public class HibernateTests {
 		s.delete(u);
 		s.delete(p);
 		s.getTransaction().commit();
+		s.close();
+	}
+	
+	@Test
+	void checkManyToMany() {
+		Session s = sessionF.openSession();
+		Transaction t = s.beginTransaction();
+		User u = new User();
+		u.setName("checkManyToMany");
+		s.save(u);
+		County c = (County) s.createQuery("FROM County").list().get(0);
+		u.addFavorite(c);
+		t.commit();
+		System.out.println("Check for user with favorited county");
+		t = s.beginTransaction();
+		s.delete(u);
+		t.commit();
 		s.close();
 	}
 }

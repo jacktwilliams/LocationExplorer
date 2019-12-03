@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,7 +29,11 @@ public class User {
 	@Transient
 	private List<Profile> profiles;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	//TODO: Find way to turn off eager fetching. Without it I am getting linked issue, even though I had a transaction started https://stackoverflow.com/questions/11746499/how-to-solve-the-failed-to-lazily-initialize-a-collection-of-role-hibernate-ex
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_fav_county",   
+    joinColumns = { @JoinColumn(name= "countyId") },   
+    inverseJoinColumns = { @JoinColumn(name = "userId") }) 
 	private List<County> favorites = new ArrayList<County>();
 	
 	public int getId() {

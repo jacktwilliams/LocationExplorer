@@ -24,7 +24,7 @@ public class FavoriteServlet extends BaseServlet {
 
 		String nav = request.getParameter("page"); //TODO: handling for null nav param
 		if (nav.equals("list")) {
-			List<County> favorites = ((User) request.getAttribute("user")).getFavorites();
+			List<County> favorites = ((User) request.getSession().getAttribute("user")).getFavorites();
 			request.getSession().setAttribute("favorites", favorites);
 			redirect(request,response, "/favorites-list.jsp");
 		} 

@@ -10,7 +10,7 @@
 	<center>
 		<h1>Profiles</h1>
 		<h2>
-			<a href="/home.jsp">Home</a>        	
+			<a href="/home.jsp">Home</a> <br/>        	
 	    	<a href="/profiles?page=create">Add New Profile</a>
 	    </h2>
 	</center>

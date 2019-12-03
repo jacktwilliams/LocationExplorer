@@ -11,8 +11,8 @@
 		<h1>Home</h1>
 	</center>
     <div align="center">
-        <a href="/profiles?page=list">Run Profiles</a>
-        <a href="/favorites?page=list">See Favorites</a>
+        <a href="/profiles?page=list">Run Profiles</a> <br/>
+        <a href="/favorites?page=list">See Favorites</a> <br/>
         <a href="/action?action=logout">Logout</a>
     </div>	
                     	
