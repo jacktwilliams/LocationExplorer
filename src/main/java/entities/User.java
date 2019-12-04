@@ -75,10 +75,6 @@ public class User {
 	public void setFavorites(List<County> favorites) {
 		this.favorites = favorites;
 	}
-	
-	public void addFavorite(County c) {
-		getFavorites().add(c);
-	}
 
 	public void removeProfile(Profile p) {
 		p.setUser(null);

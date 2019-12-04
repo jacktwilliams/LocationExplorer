@@ -33,11 +33,7 @@ public class ActionServlet extends BaseServlet {
 			int cid = Integer.parseInt(request.getParameter("countyId"));
 			County c = daoManager.getCountyDao().getCountyById(cid);
 			User u = daoManager.getSessionUser(request);
-			//boolean contains = s.contains(u);
-			Transaction t = daoManager.beginTransaction();
-			s.saveOrUpdate(u);
-			u.addFavorite(c);
-			t.commit();
+			daoManager.getUserDao().addFavoriteForUser(u, c);
 			redirect(request, response, "/favorites?page=list");
 		} else if (action.equals("logout")) {
 			request.getSession().invalidate();

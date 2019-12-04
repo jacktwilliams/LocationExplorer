@@ -1,9 +1,11 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -61,5 +63,29 @@ public class UserDao {
 		User u = (User) q.list().get(0);
 		t.commit();
 		return u;
+	}
+	
+	//last two methods here are hacks to deal with hibernate configuration issues that are plagueing me.
+	public void addFavoriteForUser(User u, County c) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		SQLQuery q = s.createSQLQuery("insert into user_fav_county (userId, countyId) VALUES " +
+				"(" + u.getId() + ", " + c.getId() + ");");
+		q.executeUpdate();
+		t.commit();
+	}
+
+	public List<County> getFavoritesForUser(User u) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		SQLQuery q = s.createSQLQuery("select * from user_fav_county");
+		List<Object[]> res = (List<Object[]>) q.list();
+		List<County> favs = new ArrayList<County>();
+		for (Object[] tup : res) {
+			if (tup[0].equals(u.getId())) {
+				favs.add(daoManager.getCountyDao().getCountyById((int)tup[1]));
+			}
+		}
+		return favs;
 	}
 }

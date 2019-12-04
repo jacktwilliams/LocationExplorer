@@ -19,11 +19,11 @@ public class FavoriteServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {
 		processRequest(request, response);
-		Session s = daoManager.startSession();
+		daoManager.startSession();
 
 		String nav = request.getParameter("page"); //TODO: handling for null nav param
 		if (nav.equals("list")) {
-			List<County> favorites = daoManager.getSessionUser(request).getFavorites();
+			List<County> favorites = daoManager.getUserDao().getFavoritesForUser(daoManager.getSessionUser(request));
 			request.getSession().setAttribute("favorites", favorites);
 			redirect(request,response, "/favorites-list.jsp");
 		} 

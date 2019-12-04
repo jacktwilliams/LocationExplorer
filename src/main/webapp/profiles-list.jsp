@@ -19,7 +19,6 @@
             <caption><h2>List of Profiles</h2></caption><br/>
          
             <tr>
-                <th>ID</th>
                 <th>Income Weight</th>
                 <th>Prices Weight</th>
                 <th>Population Weight</th>
@@ -27,7 +26,6 @@
             </tr>
             <c:forEach var="profile" items="${profiles}">
                 <tr>
-                    <td><c:out value="${profile.id}" /></td>
                     <td><c:out value="${profile.weightIncome}" /></td>
                     <td><c:out value="${profile.weightHPrice}" /></td>
                     <td><c:out value="${profile.weightPopulation}" /></td>
