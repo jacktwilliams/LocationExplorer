@@ -28,4 +28,16 @@ public class LocationService extends BaseServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 		s.close();
     }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	Session s = daoManager.getSessionF().openSession();
+		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html");
+		County c = daoManager.getCountyDao().getCountyByName(request.getParameter("county"));
+		String title = request.getParameter("title");
+		String desc = request.getParameter("description");
+		daoManager.getCountyDao().addJobForCounty(c, title, desc);
+		pw.write("OK\n");
+		s.close();
+    }
 }

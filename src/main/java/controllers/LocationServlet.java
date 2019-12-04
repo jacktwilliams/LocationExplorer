@@ -32,8 +32,7 @@ public class LocationServlet extends BaseServlet {
 			redirect(request, response, "/info-list.jsp");
 		} else if (nav.equals("details")) {
 			int cid = Integer.parseInt(request.getParameter("countyId"));
-			County c = daoManager.getCountyDao().getCountyById(cid);
-			List<Job> jobs = c.getListings();
+			List<Job> jobs = daoManager.getCountyDao().getJobsForCounty(cid);
 			request.getSession().setAttribute("jobs", jobs);
 			redirect(request, response, "/county-details.jsp");
 		}

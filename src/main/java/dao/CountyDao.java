@@ -1,15 +1,19 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import entities.County;
+import entities.Job;
+import entities.User;
 
 public class CountyDao {
 	private DaoManager daoManager;
@@ -62,5 +66,54 @@ public class CountyDao {
 		County c = (County) q.list().get(0);
 		t.commit();
 		return c;
+	}
+	
+	public County getCountyByName(String name) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		Query q = s.createQuery("FROM County WHERE name = :name");
+		q.setParameter("name", name);
+		County c = (County) q.list().get(0);
+		t.commit();
+		return c;
+	}
+	
+	public void addJobForCounty(County c, String title, String description) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		Job j = new Job();
+		j.setTitle(title);
+		j.setDescription(description);
+		s.save(j);
+		s.flush();
+		s.refresh(j);
+		SQLQuery q = s.createSQLQuery("insert into job_county (countyId, jobListingId) VALUES " +
+				"(" + c.getId() + ", " + j.getId() + ");");
+		q.executeUpdate();
+		t.commit();
+	}
+	
+	public Job getJobById(int jid) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		Query q = s.createQuery("FROM Job WHERE id = :id");
+		q.setParameter("id", jid);
+		Job j = (Job) q.list().get(0);
+		t.commit();
+		return j;
+	}
+	
+	public List<Job> getJobsForCounty(int countyId) {
+		Session s = daoManager.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		SQLQuery q = s.createSQLQuery("select * from job_county");
+		List<Object[]> res = (List<Object[]>) q.list();
+		List<Job> jobs = new ArrayList<Job>();
+		for (Object[] tup : res) {
+			if (tup[0].equals(countyId)) {
+				jobs.add(getJobById((int)tup[1]));
+			}
+		}
+		return jobs;
 	}
 }

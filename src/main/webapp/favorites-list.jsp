@@ -25,7 +25,10 @@
             </tr>
             <c:forEach var="county" items="${favorites}">
                 <tr>
-                    <td><c:out value="${county.name}" /></td>
+                    <td>
+                    	<a href="/locations?page=details&countyId=<c:out value="${county.id}" />">
+                    	<c:out value="${county.name}" /> </a>
+                    </td>
                     <td><c:out value="${county.population}" /></td>
                     <td><c:out value="${county.avgIncome}" /></td>
                     <td><c:out value="${county.avgHPrice}" /></td>
